@@ -1,0 +1,248 @@
+/*!
+ * BuSpot_1.0V - Custom Theme, Dock & Wallpaper untuk SPOT UPI
+ * Dibuat oleh OBUSXERA
+ * Lisensi: MIT (lihat LICENSE). Bukan produk resmi UPI.
+ */
+/* ===== DOCK ALA macOS ===== */
+#spot-dock {
+    --dock-bg: rgba(255, 255, 255, .55);
+    --dock-border: rgba(255, 255, 255, .75);
+    --dock-shadow: 0 10px 30px rgba(0, 0, 0, .25);
+    --dock-tip-bg: rgba(30, 30, 30, .92);
+    --dock-tip-fg: #fff;
+    --dock-dot: #333;
+}
+body.theme-gelap #spot-dock,
+body.theme-cyberpunk #spot-dock {
+    --dock-bg: rgba(28, 30, 40, .55);
+    --dock-border: rgba(255, 255, 255, .18);
+    --dock-shadow: 0 10px 30px rgba(0, 0, 0, .55);
+    --dock-tip-bg: rgba(255, 255, 255, .92);
+    --dock-tip-fg: #111;
+    --dock-dot: #fff;
+}
+body.theme-cyberpunk #spot-dock {
+    --dock-border: rgba(255, 42, 109, .8);
+    --dock-shadow: 0 0 22px rgba(255, 42, 109, .45), 0 10px 30px rgba(0, 0, 0, .55);
+}
+body.theme-hangat #spot-dock { --dock-bg: rgba(255, 244, 230, .6); }
+
+#spot-dock {
+    position: fixed; left: 50%; bottom: 14px; transform: translateX(-50%);
+    z-index: 2147482000;
+    display: flex; align-items: flex-end; gap: 14px;
+    padding: 10px 16px 14px; box-sizing: border-box;
+    background: var(--dock-bg);
+    border: 1px solid var(--dock-border);
+    border-radius: 22px;
+    box-shadow: var(--dock-shadow);
+    -webkit-backdrop-filter: blur(22px) saturate(180%);
+    backdrop-filter: blur(22px) saturate(180%);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+#spot-dock .dk-item {
+    position: relative; display: flex; flex-direction: column; align-items: center;
+    background: none; border: 0; padding: 0; margin: 0;
+    text-decoration: none; cursor: pointer; outline: none;
+    transform-origin: 50% 100%;
+    transform: scale(var(--s, 1));
+    transition: transform .12s ease-out;
+}
+#spot-dock .dk-tile {
+    width: 52px; height: 52px; border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px; line-height: 1; color: #fff;
+    background: linear-gradient(145deg, var(--c1, #ff7a45), var(--c2, #ee5a24));
+    box-shadow: 0 4px 10px rgba(0, 0, 0, .25), inset 0 1px 0 rgba(255, 255, 255, .35);
+}
+#spot-dock .dk-icon {
+    color: #fff !important; font-size: 26px !important; line-height: 1 !important;
+    margin: 0 !important; padding: 0 !important;
+    max-width: 60%; max-height: 60%;
+}
+#spot-dock .dk-tip {
+    position: absolute; bottom: calc(100% + 10px); left: 50%;
+    transform: translateX(-50%) scale(calc(1 / var(--s, 1)));
+    white-space: nowrap; padding: 5px 10px; border-radius: 8px;
+    font-size: 12px; font-weight: 600;
+    background: var(--dock-tip-bg); color: var(--dock-tip-fg);
+    opacity: 0; pointer-events: none; transition: opacity .12s;
+}
+#spot-dock .dk-item:hover .dk-tip,
+#spot-dock .dk-item:focus-visible .dk-tip { opacity: 1; }
+
+/* titik "sedang dibuka" seperti macOS */
+#spot-dock .dk-item.active::after {
+    content: ""; position: absolute; bottom: -9px;
+    width: 5px; height: 5px; border-radius: 50%;
+    background: var(--dock-dot);
+}
+
+#spot-dock .dk-sep {
+    width: 1px; height: 44px; align-self: center; margin: 0 2px;
+    background: rgba(128, 128, 128, .45);
+}
+#spot-dock .dk-profile { cursor: default; }
+#spot-dock .dk-profile .dk-tile { font-size: 18px; font-weight: 700; letter-spacing: .5px; }
+#spot-dock .dk-reset { display: none; }
+body.has-custom-bg #spot-dock .dk-reset { display: flex; }
+
+@media (max-width: 600px) {
+    #spot-dock { gap: 8px; padding: 8px 10px 12px; }
+    #spot-dock .dk-tile { width: 42px; height: 42px; font-size: 21px; border-radius: 11px; }
+    #spot-dock .dk-icon { font-size: 21px !important; }
+}
+
+/* ===== Mode Dock aktif ===== */
+body.spot-dock-on { padding-bottom: 100px; }
+
+/* tombol melayang lama diganti item dock */
+body.spot-dock-on #custom-bg-btn,
+body.spot-dock-on #custom-theme-btn,
+body.spot-dock-on #custom-bg-reset { display: none !important; }
+
+/* sembunyikan sidebar & lepaskan ruang kosong di kirinya (kecuali mode klasik) */
+body.spot-dock-on:not(.spot-classic) .spot-side-hidden { display: none !important; }
+body.spot-dock-on:not(.spot-classic) .spot-shift-m { margin-left: 0 !important; border-left: 0 !important; width: auto !important; }
+body.spot-dock-on:not(.spot-classic) .spot-shift-p { padding-left: 20px !important; }
+body.spot-dock-on:not(.spot-classic) .spot-shift-l { left: 0 !important; width: 100% !important; }
+
+/* ===== Daftar (mis. Daftar Mata Kuliah) muncul dari Dock ===== */
+#spot-dock .dk-item.open .dk-tile {
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, .9), 0 4px 12px rgba(0, 0, 0, .35);
+    filter: brightness(1.15);
+}
+body.spot-dock-on:not(.spot-classic) .spot-list-box:not(.spot-list-open) { display: none !important; }
+body.spot-dock-on:not(.spot-classic) .spot-list-box.spot-list-open {
+    display: block !important;
+    position: fixed !important;
+    left: 50% !important; right: auto !important; top: auto !important; bottom: 112px !important;
+    width: min(1100px, 94vw) !important;
+    max-height: calc(100vh - 150px);
+    overflow: auto;
+    margin: 0 !important;
+    z-index: 2147481000;
+    border-radius: 18px !important;
+    box-shadow: 0 24px 70px rgba(0, 0, 0, .45);
+    animation: spotListPop .18s ease-out;
+    transform: translateX(-50%);
+}
+@keyframes spotListPop {
+    from { opacity: 0; transform: translate(-50%, 18px) scale(.97); }
+    to   { opacity: 1; transform: translate(-50%, 0) scale(1); }
+}
+
+/* ===== Wordmark BuSpot (kanan bawah, kecil) ===== */
+#spot-brand {
+    position: fixed; right: 16px; bottom: 24px; z-index: 2147481500;
+    pointer-events: none; user-select: none;
+    padding: 7px 11px 8px; border-radius: 13px;
+    background: rgba(10, 16, 48, .72);
+    border: 1px solid rgba(198, 255, 0, .35);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, .3);
+}
+#spot-brand img {
+    display: block; width: 104px; height: auto;
+    filter: drop-shadow(0 0 5px rgba(198, 255, 0, .35));
+}
+@media (max-width: 1100px) { #spot-brand { bottom: 112px; } }   /* agar tidak tertimpa Dock */
+
+/* ===== Ikon gambar di Dock ===== */
+#spot-dock .dk-img {
+    width: 62%; height: 62%; object-fit: contain;
+    pointer-events: none; -webkit-user-drag: none;
+    filter: drop-shadow(0 1px 1px rgba(0, 0, 0, .25));
+}
+/* ikon hitam polos -> putih agar terbaca di atas warna */
+#spot-dock .dk-img.dk-mono { filter: brightness(0) invert(1) drop-shadow(0 1px 1px rgba(0, 0, 0, .3)); }
+/* ikon berwarna (Wallpaper) -> alas terang */
+#spot-dock .dk-tile.dk-tile-light {
+    background: linear-gradient(145deg, #ffffff, #dfe6f5);
+}
+#spot-dock .dk-tile.dk-tile-light .dk-img { width: 72%; height: 72%; }
+
+#spot-dock .dk-profile { cursor: pointer; }
+#spot-dock .dk-item.open .dk-tip { display: none; }
+
+/* ===== Header dibersihkan: hanya logo UPI SPOT di tengah ===== */
+body.spot-dock-on:not(.spot-classic) nav.navbar .navbar-toggle,
+body.spot-dock-on:not(.spot-classic) nav.navbar .navbar-left,
+body.spot-dock-on:not(.spot-classic) nav.navbar .navbar-right,
+body.spot-dock-on:not(.spot-classic) nav.navbar .top-left-part .logo b { display: none !important; }
+
+body.spot-dock-on:not(.spot-classic) nav.navbar .navbar-header {
+    float: none !important; width: 100% !important;
+    display: flex !important; justify-content: center; align-items: center;
+}
+body.spot-dock-on:not(.spot-classic) nav.navbar .navbar-header .top-left-part {
+    float: none !important; position: static !important;
+    width: auto !important; margin: 0 auto !important; padding: 0 !important;
+    background: transparent !important; border: 0 !important; box-shadow: none !important;
+}
+body.spot-dock-on:not(.spot-classic) nav.navbar .top-left-part .logo {
+    display: flex !important; align-items: center; justify-content: center;
+    float: none !important; width: auto !important; padding: 0 !important;
+}
+body.spot-dock-on:not(.spot-classic) nav.navbar .top-left-part .logo span { display: inline-block !important; margin: 0 !important; }
+
+/* ===== Menu akun (SB): history semester, bahasa, logout ===== */
+#spot-sb-menu {
+    --m-bg: rgba(255, 255, 255, .8);
+    --m-fg: #1d1d1f;
+    --m-border: rgba(255, 255, 255, .85);
+    --m-hover: rgba(0, 0, 0, .07);
+    --m-sec: #6b7280;
+}
+body.theme-gelap #spot-sb-menu,
+body.theme-cyberpunk #spot-sb-menu {
+    --m-bg: rgba(28, 30, 40, .8);
+    --m-fg: #f1f3f9;
+    --m-border: rgba(255, 255, 255, .18);
+    --m-hover: rgba(255, 255, 255, .1);
+    --m-sec: #9aa5b1;
+}
+body.theme-cyberpunk #spot-sb-menu {
+    --m-border: rgba(255, 42, 109, .8);
+    box-shadow: 0 0 22px rgba(255, 42, 109, .4), 0 18px 50px rgba(0, 0, 0, .5) !important;
+}
+#spot-sb-menu {
+    display: none; position: fixed; left: 12px; bottom: 112px;
+    width: 290px; max-height: calc(100vh - 140px); overflow: auto;
+    z-index: 2147481800; padding: 8px; box-sizing: border-box;
+    background: var(--m-bg); color: var(--m-fg);
+    border: 1px solid var(--m-border); border-radius: 16px;
+    box-shadow: 0 18px 50px rgba(0, 0, 0, .4);
+    -webkit-backdrop-filter: blur(22px) saturate(180%);
+    backdrop-filter: blur(22px) saturate(180%);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+#spot-sb-menu.show { display: block; animation: sbPop .16s ease-out; }
+@keyframes sbPop { from { opacity: 0; transform: translateY(10px) scale(.97); } to { opacity: 1; transform: none; } }
+
+#spot-sb-menu .sb-head { display: flex; align-items: center; gap: 10px; padding: 8px 8px 10px; }
+#spot-sb-menu .sb-avatar {
+    width: 40px; height: 40px; border-radius: 50%; flex: none;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 14px; color: #fff;
+    background: linear-gradient(145deg, #8e9aaf, #4a5568);
+}
+#spot-sb-menu .sb-who strong { display: block; font-size: 13px; line-height: 1.3; }
+#spot-sb-menu .sb-who span { font-size: 12px; opacity: .7; }
+#spot-sb-menu .sb-sec {
+    font-size: 11px; text-transform: uppercase; letter-spacing: .6px;
+    color: var(--m-sec); padding: 8px 10px 4px;
+}
+#spot-sb-menu .sb-row {
+    display: flex; align-items: center; gap: 10px; padding: 9px 10px;
+    border-radius: 10px; font-size: 13px; cursor: pointer;
+    color: var(--m-fg) !important; text-decoration: none !important;
+}
+#spot-sb-menu .sb-row:hover { background: var(--m-hover); }
+#spot-sb-menu .sb-row.active { font-weight: 700; }
+#spot-sb-menu .sb-ic { width: 20px; text-align: center; }
+#spot-sb-menu .sb-dot { margin-left: auto; font-size: 9px; color: #34c759; }
+#spot-sb-menu .sb-sepline { height: 1px; background: rgba(128, 128, 128, .3); margin: 6px 4px; }
+#spot-sb-menu .sb-danger { color: #ff453a !important; }

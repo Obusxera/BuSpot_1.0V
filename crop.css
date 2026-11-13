@@ -1,0 +1,76 @@
+/*!
+ * BuSpot_1.0V - Custom Theme, Dock & Wallpaper untuk SPOT UPI
+ * Dibuat oleh OBUSXERA
+ * Lisensi: MIT (lihat LICENSE). Bukan produk resmi UPI.
+ */
+/* ===== Jendela Crop Wallpaper ===== */
+#crop-overlay {
+    position: fixed; inset: 0; z-index: 2147483000;
+    background: rgba(0, 0, 0, .7);
+    display: flex; align-items: center; justify-content: center;
+    padding: 16px; box-sizing: border-box;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+#crop-modal {
+    background: #1b1d26; color: #f1f3f9;
+    border: 1px solid rgba(255, 255, 255, .12);
+    border-radius: 16px; padding: 20px;
+    max-width: 96vw; max-height: 96vh; overflow: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, .6);
+    box-sizing: border-box;
+}
+#crop-modal .cr-head h3 { margin: 0 0 4px; font-size: 18px; color: #fff; }
+#crop-modal .cr-head p  { margin: 0 0 14px; font-size: 13px; opacity: .7; }
+
+#crop-modal .cr-ratios { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+#crop-modal .cr-ratio {
+    padding: 6px 12px; border-radius: 999px; cursor: pointer;
+    background: rgba(255, 255, 255, .08); color: #f1f3f9;
+    border: 1px solid rgba(255, 255, 255, .15); font-size: 12px;
+}
+#crop-modal .cr-ratio.active { background: #3b82f6; border-color: #3b82f6; color: #fff; }
+
+#crop-modal .cr-stage-wrap { display: flex; justify-content: center; }
+#crop-modal .cr-stage {
+    position: relative; line-height: 0; overflow: hidden;
+    touch-action: none; user-select: none; border-radius: 6px;
+}
+#crop-modal .cr-img {
+    display: block; max-width: min(86vw, 1100px); max-height: 56vh;
+    width: auto; height: auto; pointer-events: none; -webkit-user-drag: none;
+}
+#crop-modal .cr-box {
+    position: absolute; cursor: move; box-sizing: border-box;
+    border: 2px solid #fff;
+    box-shadow: 0 0 0 9999px rgba(0, 0, 0, .6);
+    touch-action: none;
+}
+/* garis bantu 3x3 */
+#crop-modal .cr-box::before, #crop-modal .cr-box::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background:
+        linear-gradient(to right, transparent 33.2%, rgba(255,255,255,.35) 33.3%, rgba(255,255,255,.35) 33.5%, transparent 33.6%, transparent 66.5%, rgba(255,255,255,.35) 66.6%, rgba(255,255,255,.35) 66.8%, transparent 66.9%);
+}
+#crop-modal .cr-box::after {
+    background:
+        linear-gradient(to bottom, transparent 33.2%, rgba(255,255,255,.35) 33.3%, rgba(255,255,255,.35) 33.5%, transparent 33.6%, transparent 66.5%, rgba(255,255,255,.35) 66.6%, rgba(255,255,255,.35) 66.8%, transparent 66.9%);
+}
+#crop-modal .cr-h {
+    position: absolute; width: 18px; height: 18px;
+    background: #fff; border: 2px solid #3b82f6; border-radius: 4px;
+    box-sizing: border-box; touch-action: none;
+}
+#crop-modal .cr-h.nw { left: -9px;  top: -9px;    cursor: nwse-resize; }
+#crop-modal .cr-h.ne { right: -9px; top: -9px;    cursor: nesw-resize; }
+#crop-modal .cr-h.sw { left: -9px;  bottom: -9px; cursor: nesw-resize; }
+#crop-modal .cr-h.se { right: -9px; bottom: -9px; cursor: nwse-resize; }
+
+#crop-modal .cr-foot { display: flex; align-items: center; gap: 8px; margin-top: 16px; flex-wrap: wrap; }
+#crop-modal .cr-spacer { flex: 1; }
+#crop-modal .cr-btn {
+    padding: 9px 16px; border-radius: 10px; cursor: pointer; font-size: 13px; font-weight: 600;
+    border: 1px solid transparent;
+}
+#crop-modal .cr-ghost { background: rgba(255, 255, 255, .08); color: #f1f3f9; border-color: rgba(255, 255, 255, .15); }
+#crop-modal .cr-primary { background: #3b82f6; color: #fff; }
+#crop-modal .cr-btn:hover { filter: brightness(1.15); }
