@@ -12,7 +12,7 @@ _Custom Theme, Dock & Wallpaper for SPOT UPI_
 
 > **Disclaimer:** this project is **not an official product** of the Indonesia University of Education (UPI) and is not affiliated with UPI. The extension only alters **the appearance within your own browser**. It does not alter academic data, does not send data to any servers, and does not read passwords.
 
-[Preview](docs/preview.png) -->
+[Preview](docs/preview.png)
 
 ## Features
 
